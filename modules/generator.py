@@ -1,5 +1,5 @@
 """
-    Generator of the GAN.
+    Generator class for the GAN.
 """
 
 # Modules
@@ -9,10 +9,12 @@ import torch.nn as nn
 class G(nn.Module):
 
     def __init__(self):
+        """ Constructor """
+
         # Extends torch.nn
         super(G, self).__init__()
 
-        # Generator module
+        # Generator architecture
         self.main = nn.Sequential(
                     # 1st Inverse convolution
                     nn.ConvTranspose2D(100, 512, 4, 1, 0, bias = False),
@@ -37,4 +39,20 @@ class G(nn.Module):
                     # 4th inverse convolution
                     nn.ConvTranspose2d(64, 3, 4, 2, 1, bias = False),
                     nn.Tanh()
-                    )
+        )
+
+    def forward(self, input):
+        """
+            Forward propagation function,
+            which will forward propagate
+            the noise through the neural
+            networ.
+
+            Arguments:
+                param1: Random noise (input of G)
+         """
+         # Compute output
+         output = self.main(input)
+
+         # Return generator output
+         return output
