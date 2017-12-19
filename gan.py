@@ -14,6 +14,9 @@ import torchvision.transforms as transforms
 import torchvision.utils as vutils
 from torch.autograd import Variable
 
+# Import classes
+from modules import G, D
+
 # Import config file
 from config import config as cfg
 
@@ -36,3 +39,8 @@ def weights_init(m):
     elif classname.find('BatchNorm') != -1:
         m.weight.data.normal_(1.0, 0.02)
         m.bias.data.fill_(0)
+
+# Generator object
+# with applied weights
+netG = G()
+netG.apply(weights_init)
