@@ -41,6 +41,59 @@ def weights_init(m):
         m.bias.data.fill_(0)
 
 # Generator object
-# with applied weights
 netG = G()
 netG.apply(weights_init)
+
+# Discriminator object
+netD = D()
+netD.apply(weights_init)
+
+""" GAN's training """
+# loss funtion
+criterion = nn.BCELoss()
+# Discriminator optimiser
+optimiserD = optim.Adam(netD.parameters(), lr = 0.0002, betas = (0.5, 0.999))
+# Generator optimiser
+optimiserG = optim.Adam(netG.parameters(), lr = 0.0002, betas = (0.5, 0.999))
+
+# Training process
+for epoch in range(25):
+    for i, data in enumerate(dataloader, 0):
+
+        # Initialise grad with
+        # respect to the weights
+        # to 0
+        netD.zero_grad()
+
+        # Train discriminator (real image)
+        real, _ = data
+        torch_input = Variable(real)
+        target = Variable(torch.ones(torch_input.size()[0]))
+        output = netD(torch_input) # Prediction (0, 1)
+        errD_real = criterion(output, target)
+
+        # Train discriminator (fake image)
+        noise = Variable(torch.randn(torch_input.size()[0], 100, 1, 1))
+        fake = netG(noise)
+        target = Variable(torch.zeros(torch_input.size()[0]))
+        output = netD(fake.detach())
+        errD_fake = criterion(output, target)
+
+        # Backpropagation (discriminator)
+        errD = errD_real + errD_fake
+        errD.backward()
+        optimiserD.step()
+
+        # Train generator
+
+        # Initialise grad with
+        # respect to the weights
+        # to 0
+        netG.zero_grad()
+        target = Variable(torch.ones(torch_input.size()[0]))
+        output = netD(fake)
+        errG = criterion(output, target)
+
+        # Backpropagation (generator)
+        errG.backward()
+        optimiserG.step()
