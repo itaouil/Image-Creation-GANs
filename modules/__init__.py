@@ -1,5 +1,5 @@
 #!/usr/bin/env python
 
 # Export classes
-from generator import G
-from discriminator import D
+# from generator import G
+# from discriminator import D

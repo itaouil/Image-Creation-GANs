@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # Deep Convolutional GANs
 
 # Compatible with Python2
@@ -15,7 +17,8 @@ import torchvision.utils as vutils
 from torch.autograd import Variable
 
 # Import classes
-from modules import G, D
+from modules.generator import G
+from modules.discriminator import D
 
 # Import config file
 from config import config as cfg
@@ -97,3 +100,12 @@ for epoch in range(25):
         # Backpropagation (generator)
         errG.backward()
         optimiserG.step()
+
+        # Logging
+        print("[%d/%d][%d/%d] Loss_D: %.4f Loss_G: %.4f" % (epoch, 25, i, len(dataloader), errD.data[0], errG.data[0]))
+
+        # Save images every 100 steps
+        if i % 100 == 0:
+            vutils.save_image(real, "%s/real_samples.png" % "./results", normalize = True)
+            fake = netG(noise)
+            vutils.save_image(fake.data, "%s/fake_samples_epoch_%03d.png" % ("./results", epoch), normalize = True)

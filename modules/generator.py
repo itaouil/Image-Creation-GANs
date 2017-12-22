@@ -1,5 +1,7 @@
+#!/usr/bin/env python
+
 """
-    Generator class for the GAN.
+Generator class for the GAN.
 """
 
 # Modules
@@ -16,30 +18,30 @@ class G(nn.Module):
 
         # Generator modules
         self.main = nn.Sequential(
-                    # 1st Inverse convolution
-                    nn.ConvTranspose2d(100, 512, 4, 1, 0, bias = False),
-                    nn.BatchNorm2d(512),
-                    nn.ReLU(True),
+            # 1st Inverse convolution
+            nn.ConvTranspose2d(100, 512, 4, 1, 0, bias = False),
+            nn.BatchNorm2d(512),
+            nn.ReLU(True),
 
-                    # 2nd inverse convolution
-                    nn.ConvTranspose2d(512, 256, 4, 2, 1, bias = False),
-                    nn.BatchNorm2d(256),
-                    nn.ReLU(True),
+            # 2nd inverse convolution
+            nn.ConvTranspose2d(512, 256, 4, 2, 1, bias = False),
+            nn.BatchNorm2d(256),
+            nn.ReLU(True),
 
-                    # 3rd inverse convolution
-                    nn.ConvTranspose2d(256, 128, 4, 2, 1, bias = False),
-                    nn.BatchNorm2d(128),
-                    nn.ReLU(True),
+            # 3rd inverse convolution
+            nn.ConvTranspose2d(256, 128, 4, 2, 1, bias = False),
+            nn.BatchNorm2d(128),
+            nn.ReLU(True),
 
-                    # 4th inverse convolution
-                    nn.ConvTranspose2d(128, 64, 4, 2, 1, bias = False),
-                    nn.BatchNorm2d(64),
-                    nn.ReLU(True),
+            # 4th inverse convolution
+            nn.ConvTranspose2d(128, 64, 4, 2, 1, bias = False),
+            nn.BatchNorm2d(64),
+            nn.ReLU(True),
 
-                    # 5th inverse convolution
-                    nn.ConvTranspose2d(64, 3, 4, 2, 1, bias = False),
-                    nn.Tanh()
-                    )
+            # 5th inverse convolution
+            nn.ConvTranspose2d(64, 3, 4, 2, 1, bias = False),
+            nn.Tanh()
+            )
 
     def forward(self, input):
         """
@@ -49,10 +51,7 @@ class G(nn.Module):
             networ.
 
             Arguments:
-                param1: Random noise (input of G)
-         """
-         # Compute output
-         output = self.main(input)
-
-         # Return generator output
-         return output
+            param1: Random noise (input of G)
+        """
+        # Return generator output
+        return self.main(input)

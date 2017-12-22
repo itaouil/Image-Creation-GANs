@@ -1,5 +1,7 @@
+#!/usr/bin/env python
+
 """
-    Discriminator class for the GAN.
+Discriminator class for the GAN.
 """
 
 # Modules
@@ -16,29 +18,29 @@ class D(nn.Module):
 
         # Discriminator modules
         self.main = nn.Sequential(
-                    # 1st convolution
-                    nn.Conv2d(3, 64, 4, 2, 1, bias = False),
-                    nn.LeakyReLu(0.2, inplace = True),
+            # 1st convolution
+            nn.Conv2d(3, 64, 4, 2, 1, bias = False),
+            nn.LeakyReLU(0.2, inplace = True),
 
-                    # 2nd convolution
-                    nn.Conv2d(64, 128, 4, 2, 1, bias = False),
-                    nn.BatchNorm2d(128),
-                    nn.LeakyReLu(0.2, inplace = True),
+            # 2nd convolution
+            nn.Conv2d(64, 128, 4, 2, 1, bias = False),
+            nn.BatchNorm2d(128),
+            nn.LeakyReLU(0.2, inplace = True),
 
-                    # 3rd convolution
-                    nn.Conv2d(128, 256, 4, 2, 1, bias = False),
-                    nn.BatchNorm2d(256),
-                    nn.LeakyReLu(0.2, inplace = True),
+            # 3rd convolution
+            nn.Conv2d(128, 256, 4, 2, 1, bias = False),
+            nn.BatchNorm2d(256),
+            nn.LeakyReLU(0.2, inplace = True),
 
-                    # 4th convolution
-                    nn.Conv2d(256, 512, 4, 2, 1, bias = False),
-                    nn.BatchNorm2d(512),
-                    nn.LeakyReLu(0.2, inplace = True),
+            # 4th convolution
+            nn.Conv2d(256, 512, 4, 2, 1, bias = False),
+            nn.BatchNorm2d(512),
+            nn.LeakyReLU(0.2, inplace = True),
 
-                    # 4th convolution
-                    nn.Conv2d(512, 1, 4, 1, 0, bias = False),
-                    nn.Sigmoid()
-                    )
+            # 4th convolution
+            nn.Conv2d(512, 1, 4, 1, 0, bias = False),
+            nn.Sigmoid()
+            )
 
     def forward(self, input):
         """
@@ -47,10 +49,7 @@ class D(nn.Module):
             value.
 
             Arguments:
-                param1: Image crate by the generator
-         """
-         # Compute output
-         output = self.main(input)
-
-         # Return discriminator output
-         return output.view(-1)
+            param1: Image crate by the generator
+        """
+        # Return discriminator output
+        return self.main(input).view(-1)
