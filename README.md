@@ -7,3 +7,11 @@ As part of a computer vision course I got the chance to develop a DCGAN from scr
 To run it is pretty easy, just clone the repo (feel free to delete the results image in the results folder) and run the *gan.py* script, thiw will automatically download the CIFAR10 dataset and will start the training process of both the **Discriminator** and the **Generator** (if you have a powerful GPU or GPUs is better as it takes quite a long time).
 
 **N.B**: Check the results folder in the repo for some examples of art creation (only used 25epochs, the more epochs the better result, the more time it takes :))
+
+### Real Images (batch)
+
+![Real Images](https://github.com/itaouil/Image-Creation-GANs/blob/master/results/real_samples.png)
+
+### Fake Images (batch)
+
+![Fake Images](https://github.com/itaouil/Image-Creation-GANs/blob/master/results/fake_samples_epoch_024.png)
